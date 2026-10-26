@@ -6,5 +6,21 @@
     "cli",
     "agents/demo",
     "packages/protocol-client"
-  ]
+  ],
+  "scripts": {
+    "test:program": "ts-mocha -p ./tsconfig.json -t 1000000 tests/program/**/*.ts",
+    "build:web": "yarn workspace @freelance-escrow/web build",
+    "dev:web": "yarn workspace @freelance-escrow/web dev"
+  },
+  "devDependencies": {
+    "@types/chai": "4.3.20",
+    "@types/mocha": "10.0.10",
+    "chai": "4.5.0",
+    "mocha": "11.7.4",
+    "ts-mocha": "11.1.0",
+    "typescript": "5.9.3",
+    "@solana/surfpool": "1.6.1",
+    "@types/node": "22.19.11",
+    "ts-node": "10.9.2"
+  }
 }

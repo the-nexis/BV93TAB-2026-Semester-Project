@@ -1,0 +1,1060 @@
+/**
+ * Program IDL in camelCase format in order to be used in JS/TS.
+ *
+ * Note that this is only a type helper and is not the actual IDL. The original
+ * IDL can be found at `target/idl/freelance_escrow.json`.
+ */
+export type FreelanceEscrow = {
+  "address": "uiTZySgzCQVi1z8TaQcSgmcn5rVcqb7jXp7dS4sgYie",
+  "metadata": {
+    "name": "freelanceEscrow",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Permissionless freelance milestone escrow"
+  },
+  "instructions": [
+    {
+      "name": "acceptAgreement",
+      "discriminator": [
+        69,
+        99,
+        1,
+        250,
+        152,
+        135,
+        196,
+        160
+      ],
+      "accounts": [
+        {
+          "name": "provider",
+          "signer": true,
+          "relations": [
+            "agreement"
+          ]
+        },
+        {
+          "name": "agreement",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "presentedTermsHash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "advanceToBackupResolver",
+      "discriminator": [
+        54,
+        112,
+        181,
+        83,
+        221,
+        121,
+        102,
+        209
+      ],
+      "accounts": [
+        {
+          "name": "agreement",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "approveAndRelease",
+      "discriminator": [
+        63,
+        254,
+        154,
+        45,
+        149,
+        32,
+        80,
+        236
+      ],
+      "accounts": [
+        {
+          "name": "requester",
+          "signer": true,
+          "relations": [
+            "agreement"
+          ]
+        },
+        {
+          "name": "provider",
+          "writable": true
+        },
+        {
+          "name": "agreement",
+          "writable": true,
+          "relations": [
+            "vault"
+          ]
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "agreement"
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "cancelUnfunded",
+      "discriminator": [
+        7,
+        11,
+        92,
+        226,
+        201,
+        56,
+        156,
+        158
+      ],
+      "accounts": [
+        {
+          "name": "requester",
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "agreement"
+          ]
+        },
+        {
+          "name": "agreement",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  103,
+                  114,
+                  101,
+                  101,
+                  109,
+                  101,
+                  110,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "requester"
+              },
+              {
+                "kind": "account",
+                "path": "agreement.id",
+                "account": "agreement"
+              }
+            ]
+          },
+          "relations": [
+            "vault"
+          ]
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "agreement"
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "closeTerminal",
+      "discriminator": [
+        225,
+        34,
+        126,
+        171,
+        42,
+        103,
+        50,
+        231
+      ],
+      "accounts": [
+        {
+          "name": "requester",
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "agreement"
+          ]
+        },
+        {
+          "name": "agreement",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  103,
+                  114,
+                  101,
+                  101,
+                  109,
+                  101,
+                  110,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "requester"
+              },
+              {
+                "kind": "account",
+                "path": "agreement.id",
+                "account": "agreement"
+              }
+            ]
+          },
+          "relations": [
+            "vault"
+          ]
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "agreement"
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "createAgreement",
+      "discriminator": [
+        220,
+        156,
+        65,
+        172,
+        252,
+        68,
+        74,
+        233
+      ],
+      "accounts": [
+        {
+          "name": "requester",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "agreement",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  103,
+                  114,
+                  101,
+                  101,
+                  109,
+                  101,
+                  110,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "requester"
+              },
+              {
+                "kind": "arg",
+                "path": "agreementId"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "agreement"
+              }
+            ]
+          }
+        },
+        {
+          "name": "systemProgram",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "agreementId",
+          "type": {
+            "array": [
+              "u8",
+              16
+            ]
+          }
+        },
+        {
+          "name": "provider",
+          "type": "pubkey"
+        },
+        {
+          "name": "primaryResolver",
+          "type": "pubkey"
+        },
+        {
+          "name": "backupResolver",
+          "type": "pubkey"
+        },
+        {
+          "name": "amountLamports",
+          "type": "u64"
+        },
+        {
+          "name": "deliveryWindowSeconds",
+          "type": "i64"
+        },
+        {
+          "name": "reviewWindowSeconds",
+          "type": "i64"
+        },
+        {
+          "name": "resolverWindowSeconds",
+          "type": "i64"
+        },
+        {
+          "name": "termsHash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "fundAgreement",
+      "discriminator": [
+        107,
+        79,
+        10,
+        20,
+        10,
+        243,
+        34,
+        18
+      ],
+      "accounts": [
+        {
+          "name": "requester",
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "agreement"
+          ]
+        },
+        {
+          "name": "agreement",
+          "writable": true,
+          "relations": [
+            "vault"
+          ]
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "agreement"
+              }
+            ]
+          }
+        },
+        {
+          "name": "systemProgram",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "openDispute",
+      "discriminator": [
+        137,
+        25,
+        99,
+        119,
+        23,
+        223,
+        161,
+        42
+      ],
+      "accounts": [
+        {
+          "name": "requester",
+          "signer": true,
+          "relations": [
+            "agreement"
+          ]
+        },
+        {
+          "name": "provider",
+          "writable": true
+        },
+        {
+          "name": "agreement",
+          "writable": true,
+          "relations": [
+            "vault"
+          ]
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "agreement"
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "refundAfterBackupTimeout",
+      "discriminator": [
+        121,
+        79,
+        195,
+        100,
+        194,
+        206,
+        43,
+        121
+      ],
+      "accounts": [
+        {
+          "name": "requester",
+          "writable": true
+        },
+        {
+          "name": "provider",
+          "writable": true
+        },
+        {
+          "name": "agreement",
+          "writable": true,
+          "relations": [
+            "vault"
+          ]
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "agreement"
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "refundAfterDeliveryTimeout",
+      "discriminator": [
+        173,
+        113,
+        226,
+        68,
+        49,
+        252,
+        66,
+        109
+      ],
+      "accounts": [
+        {
+          "name": "requester",
+          "writable": true
+        },
+        {
+          "name": "provider",
+          "writable": true
+        },
+        {
+          "name": "agreement",
+          "writable": true,
+          "relations": [
+            "vault"
+          ]
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "agreement"
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "releaseAfterReviewTimeout",
+      "discriminator": [
+        190,
+        75,
+        119,
+        104,
+        220,
+        230,
+        65,
+        154
+      ],
+      "accounts": [
+        {
+          "name": "requester",
+          "writable": true
+        },
+        {
+          "name": "provider",
+          "writable": true
+        },
+        {
+          "name": "agreement",
+          "writable": true,
+          "relations": [
+            "vault"
+          ]
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "agreement"
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "resolveDispute",
+      "discriminator": [
+        231,
+        6,
+        202,
+        6,
+        96,
+        103,
+        12,
+        230
+      ],
+      "accounts": [
+        {
+          "name": "resolver",
+          "signer": true
+        },
+        {
+          "name": "provider",
+          "writable": true
+        },
+        {
+          "name": "requester",
+          "writable": true
+        },
+        {
+          "name": "agreement",
+          "writable": true,
+          "relations": [
+            "vault"
+          ]
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "agreement"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "outcome",
+          "type": {
+            "defined": {
+              "name": "resolverOutcome"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "submitWork",
+      "discriminator": [
+        158,
+        80,
+        101,
+        51,
+        114,
+        130,
+        101,
+        253
+      ],
+      "accounts": [
+        {
+          "name": "provider",
+          "signer": true,
+          "relations": [
+            "agreement"
+          ]
+        },
+        {
+          "name": "agreement",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "resultHash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "agreement",
+      "discriminator": [
+        83,
+        212,
+        5,
+        110,
+        225,
+        249,
+        197,
+        84
+      ]
+    },
+    {
+      "name": "escrowVault",
+      "discriminator": [
+        54,
+        84,
+        41,
+        149,
+        160,
+        181,
+        85,
+        114
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "invalidAmount",
+      "msg": "The amount must be greater than zero."
+    },
+    {
+      "code": 6001,
+      "name": "invalidWindow",
+      "msg": "All time windows must be positive and no longer than one year."
+    },
+    {
+      "code": 6002,
+      "name": "invalidRoles",
+      "msg": "Requester, provider, and resolvers must be distinct addresses."
+    },
+    {
+      "code": 6003,
+      "name": "invalidState",
+      "msg": "The agreement is not in a state that permits this action."
+    },
+    {
+      "code": 6004,
+      "name": "unauthorized",
+      "msg": "The signer is not authorized for this action."
+    },
+    {
+      "code": 6005,
+      "name": "termsHashMismatch",
+      "msg": "The provided terms hash does not match the agreement."
+    },
+    {
+      "code": 6006,
+      "name": "deadlinePassed",
+      "msg": "The relevant deadline has passed."
+    },
+    {
+      "code": 6007,
+      "name": "deadlineNotPassed",
+      "msg": "The relevant deadline has not passed yet."
+    },
+    {
+      "code": 6008,
+      "name": "invalidResolverStage",
+      "msg": "The agreement has no active resolver stage."
+    },
+    {
+      "code": 6009,
+      "name": "insufficientEscrowBalance",
+      "msg": "The escrow vault does not contain the committed amount above its rent reserve."
+    },
+    {
+      "code": 6010,
+      "name": "recipientNotWritable",
+      "msg": "The payout recipient must be writable."
+    },
+    {
+      "code": 6011,
+      "name": "timeOverflow",
+      "msg": "The deadline would overflow the timestamp representation."
+    }
+  ],
+  "types": [
+    {
+      "name": "agreement",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "requester",
+            "type": "pubkey"
+          },
+          {
+            "name": "provider",
+            "type": "pubkey"
+          },
+          {
+            "name": "primaryResolver",
+            "type": "pubkey"
+          },
+          {
+            "name": "backupResolver",
+            "type": "pubkey"
+          },
+          {
+            "name": "amountLamports",
+            "type": "u64"
+          },
+          {
+            "name": "termsHash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "status",
+            "type": {
+              "defined": {
+                "name": "agreementStatus"
+              }
+            }
+          },
+          {
+            "name": "resolverStage",
+            "type": {
+              "defined": {
+                "name": "resolverStage"
+              }
+            }
+          },
+          {
+            "name": "deliveryWindowSeconds",
+            "type": "i64"
+          },
+          {
+            "name": "reviewWindowSeconds",
+            "type": "i64"
+          },
+          {
+            "name": "resolverWindowSeconds",
+            "type": "i64"
+          },
+          {
+            "name": "deliveryDeadline",
+            "type": "i64"
+          },
+          {
+            "name": "reviewDeadline",
+            "type": "i64"
+          },
+          {
+            "name": "resolverDeadline",
+            "type": "i64"
+          },
+          {
+            "name": "submittedResultHash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "vaultBump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "agreementStatus",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "proposed"
+          },
+          {
+            "name": "accepted"
+          },
+          {
+            "name": "funded"
+          },
+          {
+            "name": "submitted"
+          },
+          {
+            "name": "disputed"
+          },
+          {
+            "name": "settled"
+          },
+          {
+            "name": "refunded"
+          }
+        ]
+      }
+    },
+    {
+      "name": "escrowVault",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "agreement",
+            "type": "pubkey"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "resolverOutcome",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "releaseToProvider"
+          },
+          {
+            "name": "refundRequester"
+          }
+        ]
+      }
+    },
+    {
+      "name": "resolverStage",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "none"
+          },
+          {
+            "name": "primary"
+          },
+          {
+            "name": "backup"
+          }
+        ]
+      }
+    }
+  ]
+};

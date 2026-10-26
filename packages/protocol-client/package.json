@@ -1,4 +1,11 @@
 {
   "name": "@freelance-escrow/protocol-client",
-  "private": true
+  "version": "0.1.0",
+  "private": true,
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "dependencies": {
+    "@anchor-lang/core": "1.2.1",
+    "@solana/web3.js": "1.99.0"
+  }
 }

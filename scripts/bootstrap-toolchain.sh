@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+ANCHOR_VERSION="1.2.1"
+SOLANA_VERSION="4.1.2"
+
 # Make user-local installs available before checking or installing anything.
 export PATH="$HOME/.cargo/bin:$HOME/.avm/bin:$HOME/.local/bin:$HOME/.local/share/solana/install/active_release/bin:$PATH"
 
@@ -15,15 +18,20 @@ if ! command -v rustc >/dev/null 2>&1 \
   curl --proto '=https' --tlsv1.2 -sSfL https://solana-install.solana.workers.dev | bash
 fi
 
-# The bundled installer may leave Anchor uninstalled or inactive. Install it
-# explicitly through Anchor Version Manager, the recommended Anchor workflow.
-if ! command -v anchor >/dev/null 2>&1; then
-  if ! command -v avm >/dev/null 2>&1; then
-    cargo install --git https://github.com/otter-sec/anchor avm --force
-  fi
-  avm install latest
-  avm use latest
+# Select the Solana version paired with this repository's Anchor version.
+if ! command -v solana >/dev/null 2>&1 || ! solana --version | grep -Fq "$SOLANA_VERSION"; then
+  sh -c "$(curl --proto '=https' --tlsv1.2 -sSfL "https://release.anza.xyz/v${SOLANA_VERSION}/install")"
 fi
+
+# AVM keeps Anchor CLI versions separate so the workspace can reproduce the
+# toolchain specified in Anchor.toml.
+if ! command -v avm >/dev/null 2>&1; then
+  cargo install --git https://github.com/otter-sec/anchor avm --force
+fi
+if [[ ! -x "$HOME/.avm/bin/anchor-$ANCHOR_VERSION" ]]; then
+  avm install "$ANCHOR_VERSION"
+fi
+avm use "$ANCHOR_VERSION"
 
 # GNU Make adds these directories for subsequent checks even if the current
 # interactive shell has not reloaded its startup configuration.

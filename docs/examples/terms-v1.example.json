@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "agreementId": "0123456789abcdef0123456789abcdef",
+  "requester": "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+  "provider": "8qbHbw2BbbTHBW1sbeqakYXVKRQM8Ne7pLK7m6CVfeR",
+  "primaryResolver": "CktRuQ2mttgRGkXJtyksdKHjUdc2C4TgDzyB98oEzy8",
+  "backupResolver": "GgBaCs3NCBuZN12kCJgAW63ydqohFkHEdfdEXBPzLHq",
+  "amountLamports": "10000000",
+  "deliveryWindowSeconds": 86400,
+  "reviewWindowSeconds": 86400,
+  "resolverWindowSeconds": 86400,
+  "scope": "Produce a JSON manifest for the agreed synthetic input files.",
+  "acceptanceCriteria": "Each manifest entry includes the filename, byte length, and SHA-256 digest; entries are sorted by filename."
+}

@@ -1,5 +1,5 @@
 # On-chain programs
 
-Anchor program crates belong here. `freelance_escrow/` is the planned first
-program; its crate will be initialized once the first agreement state machine
-and payment asset are selected.
+The first Anchor program, `freelance_escrow/`, implements a single native-SOL
+milestone agreement with provider acceptance, requester funding, delivery,
+review, dispute, resolver handoff, and permissionless timeout settlement.

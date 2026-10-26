@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "agreementId": "7c4a91e2b6d8430fa51c28d0793be462",
+  "requester": "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+  "provider": "JAZFKwZ8teShWmnwctzbZGJtg19bw4L6xVACb1ajwKDw",
+  "primaryResolver": "DpBXFnVdS36a8xHNDLKxCacv8eJJq8hy7MrbRuRVdY7v",
+  "backupResolver": "91Rz5tBbLdpzpV15mH6kUkJgfMDGhNBCk7Adj8Jx1p8T",
+  "amountLamports": "10000000",
+  "deliveryWindowSeconds": 86400,
+  "reviewWindowSeconds": 86400,
+  "resolverWindowSeconds": 86400,
+  "scope": "Create SHA-256 hashes and metadata for the agreed files.",
+  "acceptanceCriteria": "Output contains the expected filename, byte length, and SHA-256 digest for each input file."
+}

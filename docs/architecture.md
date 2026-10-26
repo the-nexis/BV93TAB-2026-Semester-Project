@@ -1,29 +1,25 @@
-# Architecture overview
+# Architecture: local vertical slice
 
-## Components
+The first slice is a single-milestone SOL escrow. programs/freelance_escrow owns a PDA vault and agreement account. packages/protocol-client contains the Anchor Core/web3.js boundary, PDA derivation, and versioned terms hashing. app/web is a React + Vite client that signs through a browser wallet. Anchor integration tests run against Surfpool's embedded local runtime.
 
-- `programs/` owns agreement state, escrow custody, authorization, and settlement
-  rules.
-- `packages/protocol-client/` is the shared interface to program instructions
-  and accounts. Anchor-generated IDL and types are placed under its `src/generated/`
-  directory.
-- `app/web/` provides the human-facing interface.
-- `cli/` provides the machine-readable command-line interface used by people
-  and agents.
-- `agents/demo/` contains the requester/provider agent demonstration. Agents
-  use the same protocol and CLI surfaces; they do not get special program
-  privileges by virtue of being agents.
-- `tests/program/` covers program rules. `tests/flows/` covers complete CLI and
-  agent workflows.
+The public agreement commits roles, amount, terms hash, current status, active deadlines, and submitted result hash. The JSON terms and files remain local and are exchanged manually. Both sides hash the RFC 8785 canonical form of the same terms before acting. The protocol uses a requester, provider, primary resolver, and backup resolver. Settlement is all-or-nothing.
 
-## Deliberately open decisions
+State progression:
 
-- Frontend framework and wallet connection approach.
-- Payment asset and escrow account design.
-- Agreement and milestone state transitions.
-- Dispute resolver interface and timeout outcomes.
-- Agent runtime, model provider, and signing policy.
-- Storage and sharing model for private briefs and deliverable evidence.
+    Proposed -> Accepted -> Funded -> Submitted -> Settled
+                                      |       -> Disputed -> Settled or Refunded
+                                      |                      -> backup timeout refund
+                                      -> delivery timeout refund
+                         review timeout -> Settled
 
-Resolve these in decision records under `docs/decisions/` before they become
-cross-component assumptions.
+The resolver result is a policy choice accepted before funding. Either the primary or backup can settle only during its assigned stage and deadline. If a resolver goes silent, the next stage becomes eligible after a timeout; if the backup also goes silent, anyone may trigger a requester refund. Terminal accounts can be closed by the requester to recover rent reserves.
+
+## Local operations
+
+make localnet starts Surfpool offline without deploying programs. make build generates the local program keypair if needed, synchronizes the local program ID, and builds. make deploy-local deploys to the running Surfpool. make test uses the embedded Surfpool SDK for isolated state and clock control. The browser app uses Surfpool RPC and a browser extension wallet.
+
+The local deploy keypair and demo wallet are machine-local and ignored; the setup helper uses a dedicated path and does not replace an existing file. No public RPC or real SOL is part of the local acceptance path.
+
+## Follow-on boundary
+
+The CLI and requester/provider agents are still in scope for the broader product, but follow the browser vertical slice. Both should call this shared client and operate on identical agreements. The agent phase includes a Codex SDK sign-in feasibility spike before choosing an execution harness.

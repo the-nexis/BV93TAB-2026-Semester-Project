@@ -1,4 +1,6 @@
 [toolchain]
+anchor_version = "1.2.1"
+solana_version = "4.1.2"
 package_manager = "yarn"
 
 [features]
@@ -6,12 +8,17 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
+freelance_escrow = "uiTZySgzCQVi1z8TaQcSgmcn5rVcqb7jXp7dS4sgYie"
 
 [provider]
 cluster = "localnet"
-wallet = "~/.config/solana/id.json"
+wallet = "~/.config/solana/freelance-escrow-localnet.json"
 
 [workspace]
+members = ["programs/freelance_escrow"]
 idls = "packages/protocol-client/src/generated/idl"
 types = "packages/protocol-client/src/generated/types"
+
+[scripts]
+test = "yarn test:program"
 

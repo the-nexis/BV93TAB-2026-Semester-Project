@@ -1,0 +1,19 @@
+# Anchor / Solana build outputs and machine-local program keys
+/target/
+/.anchor/
+/.surfpool/
+/surfnet.sqlite
+
+# JavaScript dependencies and build output
+node_modules/
+**/node_modules/
+app/web/dist/
+yarn-error.log
+
+# Local environment values and wallet material
+.env
+.env.*
+!.env.example
+*.keypair.json
+*.pem
+*.tsbuildinfo
