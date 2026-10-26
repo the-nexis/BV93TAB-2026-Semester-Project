@@ -1,0 +1,10 @@
+{
+  "name": "permissionless-freelance-escrow",
+  "private": true,
+  "workspaces": [
+    "app/web",
+    "cli",
+    "agents/demo",
+    "packages/protocol-client"
+  ]
+}
